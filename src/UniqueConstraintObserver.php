@@ -22,7 +22,7 @@ class UniqueConstraintObserver
 
         foreach ($attributes as $attribute) {
             if ($this->service->hasTranslation($attribute)) {
-                throw QueryException::duplicatedTranlation($attribute, $this->service->model->getTranslations($attribute));
+                throw QueryException::duplicatedTranlation($attribute, $this->service->model->getAttributes());
             }
         }
     }

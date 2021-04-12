@@ -6,18 +6,19 @@ use RuntimeException;
 
 class QueryException extends RuntimeException
 {
-    public string $field;
+    public array $fields;
 
     public array $entries;
 
     public static function duplicatedTranlation(
-        string $field,
+        array $fields,
         array $entries,
     ): self {
-        $e = new static(
-            sprintf("[SQL 1062] Duplicated entries [%s] for field '%s'.", collect($entries)->map(fn($e) => "'{$e}'")->join(', '), $field),
+        $e = new static(sprintf("[SQL 1062] Duplicated entries [%s] for fields {'%s'}.",
+            collect($entries)->map(fn($e) => json_decode($e))->toJson(\JSON_UNESCAPED_UNICODE),
+            collect($fields)->map(fn($f) => "'{$f}'")->join(', ')),
             1062);
-        $e->field = $field;
+        $e->fields = $fields;
         $e->entries = $entries;
 
         return $e;
@@ -28,8 +29,8 @@ class QueryException extends RuntimeException
         return $this->entries;
     }
 
-    public function field(): string
+    public function fields(): array
     {
-        return $this->field;
+        return $this->fields;
     }
 }

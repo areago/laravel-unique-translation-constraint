@@ -22,7 +22,7 @@ trait HasTranslationsConstraint
     #[Pure]
     public function getTranslatableUniqueConstraintsAttributes(): array
     {
-        return is_array($this->translatableUniqueConstraints)
+        return \is_array($this->translatableUniqueConstraints)
             ? $this->translatableUniqueConstraints
             : [];
     }
