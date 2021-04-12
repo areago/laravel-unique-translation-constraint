@@ -5,7 +5,7 @@ namespace Areago\UniqueTranslationConstraint;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * @property string[] $translatableUniqueConstraints
+ * @property array $translatableUniqueConstraints
  */
 trait HasTranslationsConstraint
 {
@@ -22,8 +22,6 @@ trait HasTranslationsConstraint
     #[Pure]
     public function getTranslatableUniqueConstraintsAttributes(): array
     {
-        return \is_array($this->translatableUniqueConstraints)
-            ? $this->translatableUniqueConstraints
-            : [];
+        return $this->translatableUniqueConstraints ?? [];
     }
 }
